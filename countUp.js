@@ -25,6 +25,7 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 		decimal: '.', // character to use as a decimal
 		easingFn: easeOutExpo, // optional custom easing function, default is Robert Penner's easeOutExpo
 		formattingFn: formatNumber, // optional custom formatting function, default is formatNumber above
+		html: false, // optional add span tags and classes
 		prefix: '', // optional text before the result
 		suffix: '', // optional text after the result
 		numerals: [] // optionally pass an array of custom numerals for 0-9
@@ -146,8 +147,30 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 			this.d.textContent = result;
 		}
 		else {
-			this.d.innerHTML = result;
+			this.d.innerHTML = self.options.html ? self.html(result) : result;
 		}
+	};
+
+	self.html = function(value) {
+		var splittedValue = value.split(self.options.decimal),
+			integerPart = splittedValue[0],
+			decimalPart = splittedValue[1] || "",
+			finalValue = '';
+
+		finalValue += '<span class="countup-number">';
+
+		finalValue += '<span class="countup-integer-part">';
+		integerPart.split(self.options.separator).forEach(function(el,i) {
+			finalValue += (i ? '<span class="countup-separator-char">'+self.options.separator+'</span>' : '');
+			finalValue += '<span class="countup-integer-fragment">'+el+'</span>';
+		});
+		finalValue += '</span>'
+
+		finalValue += decimalPart ? '<span class="countup-decimal-part"><span class="countup-decimal-char">'+self.options.decimal+'</span><span class="countup-decimal-fragment">'+decimalPart+'</span></span>' : '';
+		finalValue += '</span>'
+
+		console.log(finalValue);
+		return finalValue;
 	};
 
 	self.count = function(timestamp) {
