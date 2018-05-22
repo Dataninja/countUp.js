@@ -169,7 +169,6 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 		finalValue += decimalPart ? '<span class="countup-decimal-part"><span class="countup-decimal-char">'+self.options.decimal+'</span><span class="countup-decimal-fragment">'+decimalPart+'</span></span>' : '';
 		finalValue += '</span>'
 
-		console.log(finalValue);
 		return finalValue;
 	};
 
