@@ -160,9 +160,10 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 		finalValue += '<span class="countup-number">';
 
 		finalValue += '<span class="countup-integer-part">';
-		integerPart.split(self.options.separator).forEach(function(el,i) {
+		var integerParts = integerPart.split(self.options.separator);
+		integerParts.forEach(function(el,i) {
 			finalValue += (i ? '<span class="countup-separator-char">'+self.options.separator+'</span>' : '');
-			finalValue += '<span class="countup-integer-fragment">'+el+'</span>';
+			finalValue += '<span class="countup-integer-fragment countup-integer-fragment-'+(integerParts.length-i-1)+' '+(!i ? 'countup-integer-fragment-last' : '')+' '+(i === integerParts.length-1 ? 'countup-integer-fragment-first': '')+'">'+el+'</span>';
 		});
 		finalValue += '</span>'
 
